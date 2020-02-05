@@ -8,7 +8,8 @@ namespace CA_hikingProject.DbModels
 {
     public class ApplicationUser:IdentityUser
     {
-        public string Role { get; set; }  // bunu arawdir
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public bool IsBlocked { get; set; } = false;
         public bool IsDeleted { get; set; } = false;
         public virtual ICollection<Blog> Blogs{ get; set; }
@@ -19,5 +20,6 @@ namespace CA_hikingProject.DbModels
         public virtual ICollection<Tag> CreatedTags { get; set; }
         public virtual ICollection<Rate> Rates { get; set; }
         public virtual ICollection<PartnerWithProduct> Products { get; set; }
+        public virtual ICollection<GuideDetails> Details { get; set; }
     }
 }

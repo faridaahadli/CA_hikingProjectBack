@@ -1,0 +1,253 @@
+
+#navigation{
+    background:linear-gradient(135deg, #48c6ef 10%, #6f86d6 100%);
+}
+#login a{
+    text-decoration: none;
+}
+#login a i{
+    font-size: large;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    background:linear-gradient(to right, #5f2c82, #49a09d);
+    position: relative;
+}
+.formArea img{
+    width: 100%;
+    /* height: 100%; */
+    box-sizing: border-box;
+}
+
+#login{
+    background: white;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0px 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+#login .formArea .sectionHeader{
+display: block;
+}
+/* .logInform{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+.logInform{
+    width: 100%;
+    padding: 0px 60px;
+}
+.logInform .formBox{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  margin-bottom: 60px;
+     /* padding: 15px 30px; */
+/* margin-bottom: 20px;  */
+}
+
+.logInform input{
+    /* position: absolute; */
+    width: 100%;
+    
+    padding:10px;
+    border:none;
+    height: 100%;
+    outline: none;
+ 
+    
+}
+.inputIcon{
+    display: flex;
+    flex-direction: row;
+}
+.inputIcon i{
+    color: #adadad;
+    font-size: 20px;
+    /* position: absolute; */
+    top: 0px;
+    left: 0px;
+}
+
+.outBorder{
+    display: block;
+    width: 100%;
+    height:2px;
+    margin-bottom: 30px;
+    /* border-radius: 5%; */
+    background-color:#adadad;
+}
+.inBorder{
+    transition: all 0.3s ease-in-out;
+    width: 0%;
+    height: 100%;
+    
+}
+ .inputIcon input:focus .inputIcon i{
+  color: rgb(0, 153, 255);
+} 
+.btn_logInfrm{
+    background: linear-gradient(to right,#16bffd, #cb3066,#16bffd, #cb3066);
+    background-size: 200%;
+  background-position: right;
+  transition: background-position 500ms ease;
+}
+ #login button{
+    margin-bottom: 10px;
+    width:100%;
+    padding: 10px;
+    border-radius: 40px;
+    outline: none;
+    border-style: none;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+
+}
+.btn_facebook{
+    background: linear-gradient(to left, #667db6, #0082c8, #0082c8, #667db6, #667db6, #0082c8, #0082c8, #667db6);
+    background-size: 200%;
+  background-position: right;
+  transition: background-position 500ms ease;
+}
+.btn_gmail{
+    background: linear-gradient(to left,#eb3349, #f45c43,#eb3349, #f45c43);
+    background-size: 200%;
+  background-position: right;
+  transition: background-position 500ms ease;
+}
+.btn_logInfrm:hover{
+    background-position:left;
+    transition: background-position 500ms ease;
+   
+}
+.btn_gmail:hover{
+    background-position:left;
+    transition: background-position 500ms ease;
+   
+}
+.btn_facebook:hover{
+    background-position:left;
+    transition: background-position 500ms ease;
+   
+}
+
+  /* Register Form */
+  .regform input{
+width: 45%;
+border:none;
+margin: 0px;
+height: 50px;
+border-bottom: 1px solid blueviolet;
+margin-bottom: 15px;
+outline: none;
+  }
+  #register{
+    background: white;
+    border-radius: 40px;
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin:0px 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+
+  } 
+  #register button{
+    margin-bottom: 10px;
+    width: 40%;
+    padding: 10px;
+    border-radius: 40px;
+    outline: none;
+    border-style: none;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+  }
+  #register .btn_regfrm{
+      width: fit-content;
+      padding: 10px 15px;
+  }
+  #register input:nth-child(2n+1){
+      margin-right:45px ;
+  }
+  .btn_regfrm{
+    background:linear-gradient(to right,  #667db6, #0082c8, #0082c8, #667db6, #667db6, #0082c8, #0082c8, #667db6);
+    background-size: 200%;
+  background-position: right;
+  transition: background-position 500ms ease;
+
+  }
+  .btn_regfrm:hover{
+    background-position:left;
+    transition: background-position 500ms ease;
+   
+}
+  @media only screen and (max-width: 767px){
+    .regform input{
+        width: 100%;
+        margin-right: 0px;
+    }
+    .btn_box{
+        text-align: center;
+    }
+}
+
+  @media only screen and (max-width: 992px){
+    .logInform{
+        padding: 0px!important;
+    }
+}
+@media only screen and (max-width: 768px){
+  #register input:nth-child(2n+1){
+    margin-right:0px ;
+}
+}
+@media only screen and (max-width: 425px) and (min-width: 375px){
+    button{
+      font-size: small;
+      
+    }
+   
+  }
+  @media only screen and  (max-width: 600px){
+   
+    .sc_reg {
+       flex-direction: column;
+       justify-content: center;
+    }
+    #register .sc_reg button{
+        width: 100%;
+    }
+  }
+  @media only screen and  (max-width: 375px){
+    button{
+      font-size:smaller;
+      
+    }
+    
+  }
+
+  /* PrLoader */
+/* .preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000000000;
+  background-image: url('../img/camping.gif');
+  background-repeat: no-repeat; 
+  background-color: #FFF;
+  background-size: cover;
+  background-position: center;
+} */

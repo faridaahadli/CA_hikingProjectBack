@@ -10,7 +10,7 @@ namespace CA_hikingProject.DbModels
         public int Id { get; set; }
         public int PartnerId { get; set; }
         public virtual PartnerCompany Partner { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public int SingleTourId { get; set; }
         public virtual SingleTour SingleTour { get; set; }

@@ -1,13 +1,80 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\aboutUs.css" />
+    <None Include="wwwroot\css\blank.css" />
+    <None Include="wwwroot\css\blogs.css" />
+    <None Include="wwwroot\css\contact.css" />
+    <None Include="wwwroot\css\joinTour.css" />
+    <None Include="wwwroot\css\logIn.css" />
+    <None Include="wwwroot\css\singleBlog.css" />
+    <None Include="wwwroot\css\singleTour.css" />
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\css\tours.css" />
+    <None Include="wwwroot\img\blogs\tour1.jpg" />
+    <None Include="wwwroot\img\camping.gif" />
+    <None Include="wwwroot\img\contact\contact.jpg" />
+    <None Include="wwwroot\img\home\bgWhyUs.jpg" />
+    <None Include="wwwroot\img\home\comingSoon1.jpg" />
+    <None Include="wwwroot\img\home\footer.jpg" />
+    <None Include="wwwroot\img\home\footer.png" />
+    <None Include="wwwroot\img\home\gallery1.jpg" />
+    <None Include="wwwroot\img\home\gallery2.jpg" />
+    <None Include="wwwroot\img\home\mountain-hiking.png" />
+    <None Include="wwwroot\img\home\slider1.jpg" />
+    <None Include="wwwroot\img\home\slider2.jpg" />
+    <None Include="wwwroot\img\home\slider3.jpg" />
+    <None Include="wwwroot\img\home\stuff1.jpg" />
+    <None Include="wwwroot\img\logIn\LogIn.png" />
+    <None Include="wwwroot\img\logIn\reg.JPG" />
+    <None Include="wwwroot\img\logIn\reg.png" />
+    <None Include="wwwroot\img\tours\card_img1.jpg" />
+    <None Include="wwwroot\img\tours\xinaliq1.jpg" />
+    <None Include="wwwroot\img\tours\xinaliq2.jpg" />
+    <None Include="wwwroot\img\tours\xinaliq3.jpg" />
+    <None Include="wwwroot\js\blank.js" />
+    <None Include="wwwroot\js\blogs.js" />
+    <None Include="wwwroot\js\joinTour.js" />
+    <None Include="wwwroot\js\logIn.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\singleBlog.js" />
+    <None Include="wwwroot\js\singleTour.js" />
+    <None Include="wwwroot\js\tours.js" />
+    <None Include="wwwroot\lib\owlcarousel\assets\ajax-loader.gif" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.carousel.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.carousel.min.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.default.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.default.min.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.green.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.green.min.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.video.play.png" />
+    <None Include="wwwroot\lib\owlcarousel\LICENSE" />
+    <None Include="wwwroot\lib\owlcarousel\owl.carousel.js" />
+    <None Include="wwwroot\lib\owlcarousel\owl.carousel.min.js" />
+    <None Include="wwwroot\lib\owlcarousel\README.md" />
   </ItemGroup>
 
 

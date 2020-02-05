@@ -12,7 +12,7 @@ namespace CA_hikingProject.DbModels
         public bool IsDeleted { get; set; } = false;
         public int BlogId { get; set; }
         public virtual Blog Blog { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual ICollection<Reply> Replies { get; set; }
         public DateTime SharedDate { get; set; } = DateTime.Now;

@@ -9,7 +9,7 @@ namespace CA_hikingProject.DbModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int GuideId { get; set; }
+        public string GuideId { get; set; }
         public virtual ApplicationUser TagCreator { get; set; }
     }
 }

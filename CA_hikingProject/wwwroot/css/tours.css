@@ -1,0 +1,170 @@
+*{
+    margin: 0px;
+}
+body{
+    color: black;
+}
+.card_img{
+    overflow: hidden;
+    height: 100%;
+}
+#tourCards img{
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+  
+}
+.wholeCardBox{
+    width: 100%;
+    border: 1px solid blueviolet;
+    border-radius: 5px;
+    background: white;
+}
+.cardTitle{
+    margin-bottom: 20px;
+}
+.cardTitle a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+.listInfo{
+    list-style: none;
+}
+
+  .featureList{
+      list-style: none;
+  }
+  .cardBody{
+      padding: 10px 10px;
+  }
+  .price{
+      color:orange;
+  }
+  .filterHeader h4{
+font-weight: bold;
+font-size: 30px;
+  }
+
+  /* Datetime Filter */
+  .dateTimefilt{
+      border:1px solid blueviolet;
+      border-radius:5px;
+      overflow: hidden;
+      background-color: white;
+  }
+  .dateTimefilt input{
+      width: 100%;
+      padding:10px 20px;
+      cursor: pointer;
+      text-align:center ;
+      font-weight: bold;
+      border: none;
+  }
+  .dateTimefilt input:focus{
+      outline:none;
+  }
+
+  /* Price Filter */
+  .priceFilter{
+
+  }
+.priceFilter label{
+    font-weight:bold;
+    font-size:18px;
+}
+  .amount{
+      background-color: transparent;
+     font-size:20px;
+  }
+  .amount:focus{
+      outline: none;
+  }
+
+
+  /* Style for Range */
+  .ui-widget-header,.ui-state-hover, .ui-widget-content .ui-state-hover,.ui-state-default, .ui-widget-content .ui-state-default{
+      background:rgb(30,144,255)!important;
+  }
+  .ui-state-default:focus{
+      outline: none;
+  }
+  .ui-slider .ui-slider-handle{
+    border-radius: 50%;
+  }
+
+  /* Pagination */
+ 
+#numBox{
+    list-style: none;
+}
+  .pageNum{
+      padding: 10px;
+      border:1px solid blueviolet;
+      border-radius: 5px;
+  }
+
+  .pageNum a{
+      text-decoration: none;
+      color:blueviolet;
+  }
+  .outBox{
+      display: none;
+  }
+/*  */
+.fltBtn{
+    display: none;
+}
+  @media only screen and (max-width:768px){
+      .filterSection{
+          display: none;
+      }
+      .outBox{
+        display: block;
+    }
+.fltBtn{
+    display: block;
+}
+      .fltBtn button{
+        position: fixed;
+        top: 50%;
+        right: 0;
+        color:white;
+        background-color:blueviolet;
+        z-index: 100;
+        font-size: 16px;
+        line-height: 25px;
+        padding-right: 14px;
+        padding-left: 14px;
+        outline: none;
+        border: none;
+        font-weight: bold;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        transform:  rotate(-90deg) ;
+        transform-origin: bottom right;
+        cursor: pointer;
+        transition: all linear 300ms;
+      }
+  }
+
+  /* Overlay */
+
+  .overlay {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    
+    background-color:white;
+    z-index: 2;
+    transition: all 0.5s ease-in-out;
+}
+
+.aftOver{
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease-in-out;
+}

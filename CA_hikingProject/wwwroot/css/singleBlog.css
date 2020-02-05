@@ -1,0 +1,141 @@
+/* Single Blog Start */
+
+#singleBlog {
+    color: black;
+}
+
+#singleBlog img {
+    width: 100%;
+    height: 100%;
+}
+
+.firstSection {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+    transition: .5s ease;
+    background-color: black;
+    z-index: 2;
+}
+
+.blogHeading {
+    position: absolute;
+    width: 50%;
+    padding: 10px;
+    bottom: 30px;
+    z-index: 3;
+}
+
+.blogDetails {
+    padding-top: 10px;
+    border-top: 1px solid rgb(197, 188, 188);
+    color: rgb(197, 188, 188);
+}
+
+.blogHeading h2 {
+    color: white;
+    font-weight: bold;
+    font-size: 60px;
+}
+
+.blogDetails ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.blogDetails ul li:first-child {
+    background-color: rgb(92, 43, 226);
+    padding: 0px 5px;
+    border-radius: 5px;
+}
+
+#tag a {
+    text-decoration: none;
+    color: white;
+}
+.subTopic h3{
+    font-weight: bold;
+}
+.blogContext{
+    font-size: 18px;
+    font-family:   'Roboto', sans-serif;
+}
+@media only screen and (max-width:768px) {
+.blogHeading{
+    width: 100%;
+}
+.blogHeading h2 {
+    
+    font-size: 30px;
+}
+}
+
+
+
+/* Single Blog End */
+
+/* Comment Section Start */
+#comment{
+    color: black;
+}
+#comment textarea{
+    resize: none;
+    border:1px solid rgb(92,43,226);
+    border-radius: 5px;
+ 
+}
+.commentBox textarea{
+    width: 100%;
+    height:200px;
+}
+.replyBox{
+    width: 60%;
+    height:100px;
+    /* display: none; */
+}
+textarea:focus{
+    outline: 0;
+}
+.reply{
+    color: blue;
+    cursor: pointer;
+}
+.comment{
+    margin-top:20px;
+    border:1px solid rgb(92,43,226);
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+ 
+}
+/* Comment Section End */
+#comment h4{
+    font-weight: bold;
+    color: black;
+}
+
+.AddComment_btn button{
+    border:2px solid rgb(92,43,226);
+    background-color: rgb(92,43,226);
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+   transition: all 0.3s ease-in-out ;
+    font-weight: bold;
+    font-size: large;
+    color: white;
+}

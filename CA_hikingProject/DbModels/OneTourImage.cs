@@ -12,5 +12,7 @@ namespace CA_hikingProject.DbModels
         public virtual SingleTour SingleTour { get; set; }
         public int ImageId { get; set; }
         public virtual Image Image { get; set; }
+        public bool IsIntro { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

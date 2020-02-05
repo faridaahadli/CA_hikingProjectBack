@@ -1,0 +1,124 @@
+* {
+    margin: 0px;
+}
+
+body {
+    color: black;
+}
+
+.card_img {
+    overflow: hidden;
+    height: 100%;
+}
+
+#blogCards img {
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.wholeCardBox {
+    width: 100%;
+    border: 1px solid blueviolet;
+    border-radius: 5px;
+    background: white;
+}
+
+.cardTitle {
+    margin-bottom: 20px;
+}
+
+.cardTitle a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.cardBody {
+    padding: 10px 10px;
+}
+
+.blogDetails {
+    padding-top: 10px;
+    border-top: 1px solid rgb(197, 188, 188);
+    color: rgb(197, 188, 188);
+}
+
+.blogDetails ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.blogDetails ul li:first-child a{
+    background-color: rgb(92, 43, 226);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#tag a {
+    text-decoration: none;
+    color: white;
+}
+
+.tagHeader h4 {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.tags ul{
+    list-style-type: none;
+}
+
+.tags a {
+    text-decoration: none;
+    color: gray;
+}
+
+span{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    box-sizing: border-box;
+
+}
+
+.tags span a {
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 34px;
+    border: 1px solid blueviolet;
+    border-radius: 3px;
+    font-size: 14px;
+    height: 34px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: #333;
+    background-color: #fff;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+}
+
+.tags span a:hover {
+    background: blueviolet;
+    color: white;
+
+}
+
+.tags span .selected{
+    background: blueviolet;
+    color: white;
+    font-weight: bold;
+}
+
+@media only screen and (max-width:361px){
+    #blogDet{
+        display: block;
+    }
+    
+}

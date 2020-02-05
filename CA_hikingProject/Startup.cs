@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using CA_hikingProject.Models;
 
 namespace CA_hikingProject
 {
@@ -30,9 +32,23 @@ namespace CA_hikingProject
             services.AddMvc();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options=> 
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireUppercase = false;
+
+                options.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "943684324068-shh7m2b7grvrggc59ocdun5cdnbt034n.apps.googleusercontent.com";
+                    options.ClientSecret = "jApvockH_UAxX5Ug77RX09DH";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +74,7 @@ namespace CA_hikingProject
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
