@@ -96,44 +96,45 @@ namespace CA_hikingProject.Controllers
 
 
         //Functions for LogIn 
-        #region
+     
         [HttpPost]
-        //public async Task<IActionResult> LogIn(LoginViewModel model,string ReturnUrl)
-        //{
-        //    model.ReturnUrl = ReturnUrl;
-        //    model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        //    var user = await userManager.FindByNameAsync(model.Email);
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return RedirectToAction("register");
-        //    }
-        //    if (user == null)
-        //        return RedirectToAction("register");
-        //    var result = await signInManager.PasswordSignInAsync(user.Email, model.Password,model.RememberMe,false);
+        public async Task<IActionResult> LogIn(LoginViewModel model, string ReturnUrl)
+        {
+            model.ReturnUrl = ReturnUrl;
+            model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var user = await userManager.FindByNameAsync(model.Email);
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("register");
+            }
+            if (user == null)
+                return RedirectToAction("register");
+            var result = await signInManager.PasswordSignInAsync(user.Email, model.Password, model.RememberMe, false);
 
-        //    if (!result.Succeeded)
-        //    {
-        //        return RedirectToAction("register");
-        //    }
-        //    return View("LogIn", model);
+            if (!result.Succeeded)
+            {
+                return RedirectToAction("register");
+            }
+            return View("LogIn", model);
+        }
+        #region
+        //[HttpPost]
+        //public async Task<IActionResult> LogIn( string returnUrl)
+        //{
+        //    var model = new LoginViewModel() { 
+        //        ExternalLogins =(await signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
+        //        ReturnUrl=returnUrl
+
+        //    };
+        //    return View();
         //}
         #endregion
-        [HttpPost]
-        public async Task<IActionResult> LogIn( string returnUrl)
-        {
-            var model = new LoginViewModel() { 
-                ExternalLogins =(await signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
-                ReturnUrl=returnUrl
-            
-            };
-            return View();
-        }
         [HttpPost]
         public IActionResult ExternalLogin()
         {
             var redirectUrl = Url.Action("ExtLogCall", "Account");
-            var props = signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
-            return new ChallengeResult("Google",props);
+            var props = signInManager.ConfigureExternalAuthenticationProperties("Facebook", redirectUrl);
+            return new ChallengeResult("Facebook",props);
         }
         //[HttpPost]
         //public async Task<IActionResult> LogIn(string ReturnUrl)

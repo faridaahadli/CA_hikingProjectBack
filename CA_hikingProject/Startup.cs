@@ -48,7 +48,12 @@ namespace CA_hikingProject
                 {
                     options.ClientId = "943684324068-shh7m2b7grvrggc59ocdun5cdnbt034n.apps.googleusercontent.com";
                     options.ClientSecret = "jApvockH_UAxX5Ug77RX09DH";
+                }).AddFacebook(options =>
+                {
+                    options.AppId = "1546627785487573";
+                    options.AppSecret = "ba71dabd75f5b3eee7db6b73b72b4868";
                 });
+                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

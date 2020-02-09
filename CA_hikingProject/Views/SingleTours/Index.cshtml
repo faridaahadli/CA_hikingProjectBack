@@ -1,0 +1,107 @@
+﻿@model IEnumerable<CA_hikingProject.DbModels.SingleTour>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-8 w-100">
+        <table class="table w-100" style="overflow:scroll">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MaxPersonLimit)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MeetAddress)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SalePercent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LocationStory)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Warning)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TourType)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaxPersonLimit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MeetAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SalePercent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LocationStory)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Warning)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TourType.Name)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    </div>

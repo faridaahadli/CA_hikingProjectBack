@@ -22,7 +22,7 @@ namespace CA_hikingProject.Controllers
         {
             return View();
         }
-
+     
         public IActionResult Privacy()
         {
             return View();

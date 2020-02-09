@@ -19,6 +19,22 @@ namespace CA_hikingProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CA_hikingProject.DbModels.AllImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("CA_hikingProject.DbModels.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -125,7 +141,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("WriterId");
 
-                    b.ToTable("Blog");
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Comment", b =>
@@ -156,7 +172,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.GuideDetails", b =>
@@ -193,6 +209,7 @@ namespace CA_hikingProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("GuideId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TourId")
@@ -204,22 +221,25 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("TourId");
 
-                    b.ToTable("GuideToTourPvt");
+                    b.ToTable("GuideToTourPvts");
                 });
 
-            modelBuilder.Entity("CA_hikingProject.DbModels.Image", b =>
+            modelBuilder.Entity("CA_hikingProject.DbModels.NavMenu", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Source")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Image");
+                    b.ToTable("NavMenus");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.OneTourImage", b =>
@@ -241,13 +261,16 @@ namespace CA_hikingProject.Migrations
                     b.Property<int>("SingleTourId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("myImageId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ImageId");
+                    b.HasKey("Id");
 
                     b.HasIndex("SingleTourId");
 
-                    b.ToTable("OneTourImage");
+                    b.HasIndex("myImageId");
+
+                    b.ToTable("OneTourImages");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.PartnerCompany", b =>
@@ -271,7 +294,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PartnerCompany");
+                    b.ToTable("PartnerCompanies");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.PartnerWithProduct", b =>
@@ -310,7 +333,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PartnerWithProduct");
+                    b.ToTable("PartnerWithProducts");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Rate", b =>
@@ -327,6 +350,7 @@ namespace CA_hikingProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -335,7 +359,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Rate");
+                    b.ToTable("Rates");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Reply", b =>
@@ -349,9 +373,11 @@ namespace CA_hikingProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -360,7 +386,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reply");
+                    b.ToTable("Replies");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Requirement", b =>
@@ -371,6 +397,7 @@ namespace CA_hikingProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SingleTourId")
@@ -380,7 +407,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("SingleTourId");
 
-                    b.ToTable("Requirement");
+                    b.ToTable("Requirements");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.SingleTour", b =>
@@ -433,7 +460,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("TourTypeId");
 
-                    b.ToTable("SingleTour");
+                    b.ToTable("SingleTours");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Tag", b =>
@@ -444,9 +471,11 @@ namespace CA_hikingProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("GuideId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TagCreatorId")
@@ -456,7 +485,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("TagCreatorId");
 
-                    b.ToTable("Tag");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.TagOfArticle", b =>
@@ -478,7 +507,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("TagOfArticle");
+                    b.ToTable("TagsOfArticles");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.TourType", b =>
@@ -489,11 +518,15 @@ namespace CA_hikingProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("StillActive")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TourType");
+                    b.ToTable("TourTypes");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.TypeOfGuide", b =>
@@ -504,6 +537,7 @@ namespace CA_hikingProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("GuideId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TourTypeId")
@@ -515,7 +549,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("TourTypeId");
 
-                    b.ToTable("TypeOfGuide");
+                    b.ToTable("TypeOfGuides");
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.UserCustomPayingInfo", b =>
@@ -526,6 +560,7 @@ namespace CA_hikingProject.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Contact")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsReturned")
@@ -538,6 +573,7 @@ namespace CA_hikingProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -546,7 +582,7 @@ namespace CA_hikingProject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserCustomPayingInfo");
+                    b.ToTable("UserCustomPayingInfos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -685,7 +721,7 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "Writer")
                         .WithMany("Blogs")
                         .HasForeignKey("WriterId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -694,47 +730,50 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.Blog", "Blog")
                         .WithMany("Comments")
                         .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.GuideDetails", b =>
                 {
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "Guide")
                         .WithMany("Details")
-                        .HasForeignKey("GuideId");
+                        .HasForeignKey("GuideId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.GuideToTourPvt", b =>
                 {
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "Guide")
                         .WithMany()
-                        .HasForeignKey("GuideId");
+                        .HasForeignKey("GuideId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.SingleTour", "Tour")
                         .WithMany("GuidesToTours")
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.OneTourImage", b =>
                 {
-                    b.HasOne("CA_hikingProject.DbModels.Image", "Image")
-                        .WithMany("TourImages")
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CA_hikingProject.DbModels.SingleTour", "SingleTour")
                         .WithMany("TourImages")
                         .HasForeignKey("SingleTourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("CA_hikingProject.DbModels.AllImage", "myImage")
+                        .WithMany("TourImages")
+                        .HasForeignKey("myImageId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.PartnerWithProduct", b =>
@@ -742,18 +781,19 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.PartnerCompany", "Partner")
                         .WithMany("Products")
                         .HasForeignKey("PartnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.SingleTour", "SingleTour")
                         .WithMany("Products")
                         .HasForeignKey("SingleTourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "User")
                         .WithMany("Products")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Rate", b =>
@@ -761,12 +801,14 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.SingleTour", "SingleTour")
                         .WithMany("Rates")
                         .HasForeignKey("SingleTourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "User")
                         .WithMany("Rates")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Reply", b =>
@@ -774,12 +816,14 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.Comment", "Comment")
                         .WithMany("Replies")
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "User")
                         .WithMany("Replies")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.Requirement", b =>
@@ -787,7 +831,7 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.SingleTour", "SingleTour")
                         .WithMany("Requirements")
                         .HasForeignKey("SingleTourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -796,7 +840,7 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.TourType", "TourType")
                         .WithMany("Tours")
                         .HasForeignKey("TourTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -804,7 +848,8 @@ namespace CA_hikingProject.Migrations
                 {
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "TagCreator")
                         .WithMany("CreatedTags")
-                        .HasForeignKey("TagCreatorId");
+                        .HasForeignKey("TagCreatorId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.TagOfArticle", b =>
@@ -812,13 +857,13 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.Blog", "Blog")
                         .WithMany("TagsOfArticle")
                         .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -826,12 +871,14 @@ namespace CA_hikingProject.Migrations
                 {
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "Guide")
                         .WithMany("TypeOfGuides")
-                        .HasForeignKey("GuideId");
+                        .HasForeignKey("GuideId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.TourType", "TourType")
                         .WithMany("TypeOfGuides")
                         .HasForeignKey("TourTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -840,12 +887,14 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.SingleTour", "Tour")
                         .WithMany("UserCustomPayings")
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", "User")
                         .WithMany("UserCustomPayings")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -853,7 +902,7 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -862,7 +911,7 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -871,7 +920,7 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -880,13 +929,13 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -895,7 +944,7 @@ namespace CA_hikingProject.Migrations
                     b.HasOne("CA_hikingProject.DbModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

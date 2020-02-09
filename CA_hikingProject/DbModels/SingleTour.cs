@@ -27,7 +27,8 @@ namespace CA_hikingProject.DbModels
         public int SalePercent { get; set; }
         public string LocationStory { get; set; }
         public string Warning { get; set; }
-      
+        
+        //public string Description { get; set; }
         public int TourTypeId { get; set; }
         public virtual TourType TourType { get; set; }
         public virtual ICollection<UserCustomPayingInfo> UserCustomPayings { get; set; }
