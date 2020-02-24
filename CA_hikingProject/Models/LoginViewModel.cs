@@ -14,7 +14,7 @@ namespace CA_hikingProject.Models
         [Required]
         public string Password { get; set; }
         public bool RememberMe { get; set; } = false;
-        public string ReturnUrl { get; set; }
-        public IList<AuthenticationScheme> ExternalLogins{ get; set; }
+        //public string ReturnUrl { get; set; }
+        //public IList<AuthenticationScheme> ExternalLogins{ get; set; }
     }
 }

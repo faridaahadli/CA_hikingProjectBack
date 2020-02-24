@@ -5,10 +5,12 @@
     ViewData["Title"] = "Create";
 }
 
-
-
+@{
+    Layout = "_AdminLayout";
+}
+@*@{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }*@
 <div class="col-md-8">
-    <form asp-action="Create">
+    <form asp-area="Admin" asp-action="Create" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Title" class="control-label"></label>
@@ -75,11 +77,33 @@
                 <option value="" disabled selected>Beledcilere secin</option>
                 @foreach (var item in ViewBag.Guides)
                 {
-                    <option value="@item.Id">@item.Name  @item.Surname</option>
-                }
+                    if (item != null)
+                    {
+                        <option value="@item.Id">@item.Name  @item.Surname</option>
+                    }
+                    else
+                    {
+                        <option>Beledci yoxdur</option>
+                    }
 
-           
+                }
             </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Requirements</label>
+            <div class="border-success w-100" type="text" id="reqHolder" value="gbhnj" style="height:100px;overflow-y:scroll">
+
+            </div>
+            <textarea style="visibility:hidden" class="border-success w-100" id="reqHolderInp" name="requirement" style="height:100px;overflow-y:scroll">
+
+         </textarea>
+            <input class="form-control" id="reqCrt" />
+            <input type="button" id="add_req" value="Add requirement" class="btn btn-primary mt-2" />
+        </div>
+        <div class="form-group">
+            <label class="control-label"></label>
+            <input type="file" multiple name="sources" class="form-control" />
+
         </div>
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-primary" />
@@ -88,10 +112,46 @@
 </div>
 
 
-
-
-
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts
+{
+    <script>
+        var text = "";
+        $("#add_req").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/Admin/SingleTours/Create",
+                success: function (res) {
+                    if ($("#reqCrt").val() != "") {
+                        text += `${$("#reqCrt").val()}\n`;
+                        $("#reqHolder").append(
+                            "<div>" + $("#reqCrt").val() + "<span id='exit'><i class='fas fa-times ml-2' ></i></span>" + "</div>"
+                        )
+                        $("#reqHolderInp").val(text)
+                    }
+
+
+                }
+            })
+            $("#reqHolder").val($("#reqHolder").text())
+            console.log($("#reqHolder").val())
+
+        })
+        $("#exit").click(function () {
+            console.log("Hellow")
+            $.ajax({
+                type: "GET",
+                url: "Admin/SingleTours/Create",
+                success: function (res) {
+                    //$("#reqHolder").remove($("#exit").parent())
+
+                }
+            })
+        })
+
+    </script>
+}

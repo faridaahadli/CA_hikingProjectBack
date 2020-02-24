@@ -4,14 +4,16 @@ using CA_hikingProject.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CA_hikingProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200211182621_last_mig")]
+    partial class last_mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,7 +251,7 @@ namespace CA_hikingProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AllImageId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -261,11 +263,14 @@ namespace CA_hikingProject.Migrations
                     b.Property<int>("SingleTourId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("myImageId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AllImageId");
-
                     b.HasIndex("SingleTourId");
+
+                    b.HasIndex("myImageId");
 
                     b.ToTable("OneTourImages");
                 });
@@ -761,17 +766,16 @@ namespace CA_hikingProject.Migrations
 
             modelBuilder.Entity("CA_hikingProject.DbModels.OneTourImage", b =>
                 {
-                    b.HasOne("CA_hikingProject.DbModels.AllImage", "myImage")
-                        .WithMany("TourImages")
-                        .HasForeignKey("AllImageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CA_hikingProject.DbModels.SingleTour", "SingleTour")
                         .WithMany("TourImages")
                         .HasForeignKey("SingleTourId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("CA_hikingProject.DbModels.AllImage", "myImage")
+                        .WithMany("TourImages")
+                        .HasForeignKey("myImageId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("CA_hikingProject.DbModels.PartnerWithProduct", b =>

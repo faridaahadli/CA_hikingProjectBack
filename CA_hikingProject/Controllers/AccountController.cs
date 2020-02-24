@@ -98,10 +98,10 @@ namespace CA_hikingProject.Controllers
         //Functions for LogIn 
      
         [HttpPost]
-        public async Task<IActionResult> LogIn(LoginViewModel model, string ReturnUrl)
+        public async Task<IActionResult> LogIn(LoginViewModel model)
         {
-            model.ReturnUrl = ReturnUrl;
-            model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            //model.ReturnUrl = ReturnUrl;
+            //model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             var user = await userManager.FindByNameAsync(model.Email);
             if (!ModelState.IsValid)
             {

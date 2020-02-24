@@ -1,0 +1,43 @@
+﻿@model CA_hikingProject.DbModels.OneTourImage
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>OneTourImage</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SingleTourId" class="control-label"></label>
+                <select asp-for="SingleTourId" class ="form-control" asp-items="ViewBag.SingleTourId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllImageId" class="control-label"></label>
+                <select asp-for="AllImageId" class ="form-control" asp-items="ViewBag.AllImageId"></select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsIntro" /> @Html.DisplayNameFor(model => model.IsIntro)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

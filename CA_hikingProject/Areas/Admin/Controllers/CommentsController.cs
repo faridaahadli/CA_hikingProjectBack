@@ -7,24 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CA_hikingProject.DbModels;
 
-namespace CA_hikingProject.Controllers
+namespace CA_hikingProject.Areas.Admin.Controllers
 {
-    public class TourTypesController : Controller
+    [Area("Admin")]
+    public class CommentsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TourTypesController(ApplicationDbContext context)
+        public CommentsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: TourTypes
+        // GET: Admin/Comments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TourTypes.ToListAsync());
+            var applicationDbContext = _context.Comments.Include(c => c.Blog).Include(c => c.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: TourTypes/Details/5
+        // GET: Admin/Comments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +34,45 @@ namespace CA_hikingProject.Controllers
                 return NotFound();
             }
 
-            var tourType = await _context.TourTypes
+            var comment = await _context.Comments
+                .Include(c => c.Blog)
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tourType == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return View(tourType);
+            return View(comment);
         }
 
-        // GET: TourTypes/Create
+        // GET: Admin/Comments/Create
         public IActionResult Create()
         {
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Content");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: TourTypes/Create
+        // POST: Admin/Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,StillActive")] TourType tourType)
+        public async Task<IActionResult> Create([Bind("Id,Description,IsDeleted,BlogId,UserId,SharedDate")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tourType);
+                _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tourType);
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Content", comment.BlogId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", comment.UserId);
+            return View(comment);
         }
 
-        // GET: TourTypes/Edit/5
+        // GET: Admin/Comments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +80,24 @@ namespace CA_hikingProject.Controllers
                 return NotFound();
             }
 
-            var tourType = await _context.TourTypes.FindAsync(id);
-            if (tourType == null)
+            var comment = await _context.Comments.FindAsync(id);
+            if (comment == null)
             {
                 return NotFound();
             }
-            return View(tourType);
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Content", comment.BlogId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", comment.UserId);
+            return View(comment);
         }
 
-        // POST: TourTypes/Edit/5
+        // POST: Admin/Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StillActive")] TourType tourType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,IsDeleted,BlogId,UserId,SharedDate")] Comment comment)
         {
-            if (id != tourType.Id)
+            if (id != comment.Id)
             {
                 return NotFound();
             }
@@ -96,12 +106,12 @@ namespace CA_hikingProject.Controllers
             {
                 try
                 {
-                    _context.Update(tourType);
+                    _context.Update(comment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TourTypeExists(tourType.Id))
+                    if (!CommentExists(comment.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +122,12 @@ namespace CA_hikingProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tourType);
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Content", comment.BlogId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", comment.UserId);
+            return View(comment);
         }
 
-        // GET: TourTypes/Delete/5
+        // GET: Admin/Comments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +135,32 @@ namespace CA_hikingProject.Controllers
                 return NotFound();
             }
 
-            var tourType = await _context.TourTypes
+            var comment = await _context.Comments
+                .Include(c => c.Blog)
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tourType == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return View(tourType);
+            return View(comment);
         }
 
-        // POST: TourTypes/Delete/5
+        // POST: Admin/Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tourType = await _context.TourTypes.FindAsync(id);
-            _context.TourTypes.Remove(tourType);
+            var comment = await _context.Comments.FindAsync(id);
+            _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TourTypeExists(int id)
+        private bool CommentExists(int id)
         {
-            return _context.TourTypes.Any(e => e.Id == id);
+            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }

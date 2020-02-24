@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CA_hikingProject.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CA_hikingProject
 {
@@ -30,6 +31,7 @@ namespace CA_hikingProject
         {
             services.AddControllersWithViews();
             services.AddMvc();
+           
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>(options=> 
@@ -53,6 +55,7 @@ namespace CA_hikingProject
                     options.AppId = "1546627785487573";
                     options.AppSecret = "ba71dabd75f5b3eee7db6b73b72b4868";
                 });
+
                 
         }
 
@@ -77,8 +80,12 @@ namespace CA_hikingProject
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                   name: "areaRoute",
+                   pattern: "{area:exists}/{controller=Adminpanel}/{action=Index}/{id?}");
                 //endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",

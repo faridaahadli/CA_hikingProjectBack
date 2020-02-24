@@ -1,0 +1,165 @@
+﻿@model CA_hikingProject.Models.TourViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+
+}
+@{
+    Layout = "_AdminLayout";
+}
+<h1>Edit</h1>
+
+<h4>SingleTour</h4>
+<hr />
+
+<div class="col-md-8">
+    <form asp-area="Admin" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Tour.Id" />
+        <div class="form-group">
+            <label asp-for="Tour.Title" class="control-label"></label>
+            <input asp-for="Tour.Title" class="form-control" />
+            <span asp-validation-for="Tour.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.StartDate" class="control-label"></label>
+            <input asp-for="Tour.StartDate" class="form-control" />
+            <span asp-validation-for="Tour.StartDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.EndDate" class="control-label"></label>
+            <input asp-for="Tour.EndDate" class="form-control" />
+            <span asp-validation-for="Tour.EndDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.Location" class="control-label"></label>
+            <input asp-for="Tour.Location" class="form-control" />
+            <span asp-validation-for="Tour.Location" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.Price" class="control-label"></label>
+            <input asp-for="Tour.Price" class="form-control" />
+            <span asp-validation-for="Tour.Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.MaxPersonLimit" class="control-label"></label>
+            <input asp-for="Tour.MaxPersonLimit" class="form-control" />
+            <span asp-validation-for="Tour.MaxPersonLimit" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Tour.IsActive" /> @Html.DisplayNameFor(model => model.Tour.IsActive)
+            </label>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.MeetAddress" class="control-label"></label>
+            <input asp-for="Tour.MeetAddress" class="form-control" />
+            <span asp-validation-for="Tour.MeetAddress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.SalePercent" class="control-label"></label>
+            <input asp-for="Tour.SalePercent" class="form-control" />
+            <span asp-validation-for="Tour.SalePercent" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.LocationStory" class="control-label"></label>
+            <input asp-for="Tour.LocationStory" class="form-control" />
+            <span asp-validation-for="Tour.LocationStory" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.Warning" class="control-label"></label>
+            <input asp-for="Tour.Warning" class="form-control" />
+            <span asp-validation-for="Tour.Warning" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tour.TourTypeId" class="control-label"></label>
+            <select asp-for="Tour.TourTypeId" class="form-control" asp-items="ViewBag.TourTypeId"></select>
+            <span asp-validation-for="Tour.TourTypeId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+
+            <label class="control-label">Requirements</label>
+            <div class="border-success w-100" type="text" id="reqHolder" value="gbhnj" style="height:100px;overflow-y:scroll">
+                @foreach (var item in Model.Tour.Requirements)
+                {
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@item.Id" asp-controller="Requirements">
+                            @item.Description
+                        </a>
+                        <span id='exit'><i class='fas fa-times ml-2'></i></span>
+                    </div>
+                }
+            </div>
+            <textarea style="white-space:pre-line" class="border-success w-100" id="reqHolderInp" name="requirement" style="height:100px;overflow-y:scroll">
+                  @foreach (var item in Model.Tour.Requirements)
+                    {
+                       @item.Description <br />
+
+
+
+                    }
+                   </textarea>
+        </div>
+        <div class="form-group">
+            @foreach (var item in Model.Tour.TourImages)
+            {
+                <a asp-action="Edit" asp-route-id="@item.Id" asp-controller="OneTourImages">
+                    <div style="width:200px">
+                        <img class="w-100" src="~/img/tours/@Model.Photos.First(p=>p.Id==item.AllImageId).Source" />
+                    </div>
+
+                </a>
+            }
+
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts
+{
+    <script>
+        var text = "";
+        $("#add_req").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/SingleTours/Edit",
+                success: function (res) {
+                    if ($("#reqCrt").val() != "") {
+                        text += `${$("#reqCrt").val()}\n`;
+                        $("#reqHolder").append(
+                            "<div>" + $("#reqCrt").val() + "<span id='exit'><i class='fas fa-times ml-2' ></i></span>" + "</div>"
+                        )
+                        $("#reqHolderInp").val(text)
+                    }
+
+
+                }
+            })
+            $("#reqHolder").val($("#reqHolder").text())
+            console.log($("#reqHolder").val())
+
+        })
+        $("#exit").click(function () {
+            console.log("Hellow")
+            $.ajax({
+                type: "GET",
+                url: "/SingleTours/Create",
+                success: function (res) {
+                    //$("#reqHolder").remove($("#exit").parent())
+
+                }
+            })
+        })
+
+    </script>
+}

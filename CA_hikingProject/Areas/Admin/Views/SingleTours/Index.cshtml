@@ -3,11 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@{ 
+    Layout = "_AdminLayout";
+}
 
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-area="Admin"  asp-action="Create">Create New</a>
 </p>
 <div class="row">
     <div class="col-md-8 w-100">
@@ -41,7 +43,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.SalePercent)
                     </th>
-                    <th>
+                    <th >
                         @Html.DisplayNameFor(model => model.LocationStory)
                     </th>
                     <th>
@@ -84,7 +86,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.SalePercent)
                         </td>
-                        <td>
+                        <td colspan="2">
                             @Html.DisplayFor(modelItem => item.LocationStory)
                         </td>
                         <td>
