@@ -1,5 +1,5 @@
 ﻿
-@model CA_hikingProject.DbModels.SingleTour
+@model CA_hikingProject.Areas.Admin.Models.SingleTourViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -9,67 +9,68 @@
     Layout = "_AdminLayout";
 }
 @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }*@
+
 <div class="col-md-8">
     <form asp-area="Admin" asp-action="Create" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="Title" class="control-label"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
+            <label asp-for="singleTour.Title" class="control-label"></label>
+            <input asp-for="singleTour.Title" class="form-control" />
+            <span asp-validation-for="singleTour.Title" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="StartDate" class="control-label"></label>
-            <input asp-for="StartDate" class="form-control" />
-            <span asp-validation-for="StartDate" class="text-danger"></span>
+            <label asp-for="singleTour.StartDate" class="control-label"></label>
+            <input asp-for="singleTour.StartDate" class="form-control" />
+            <span asp-validation-for="singleTour.StartDate" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="EndDate" class="control-label"></label>
-            <input asp-for="EndDate" class="form-control" />
-            <span asp-validation-for="EndDate" class="text-danger"></span>
+            <label asp-for="singleTour.EndDate" class="control-label"></label>
+            <input asp-for="singleTour.EndDate" class="form-control" />
+            <span asp-validation-for="singleTour.EndDate" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Location" class="control-label"></label>
-            <input asp-for="Location" class="form-control" />
-            <span asp-validation-for="Location" class="text-danger"></span>
+            <label asp-for="singleTour.Location" class="control-label"></label>
+            <input asp-for="singleTour.Location" class="form-control" />
+            <span asp-validation-for="singleTour.Location" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Price" class="control-label"></label>
-            <input asp-for="Price" class="form-control" />
-            <span asp-validation-for="Price" class="text-danger"></span>
+            <label asp-for="singleTour.Price" class="control-label"></label>
+            <input asp-for="singleTour.Price" class="form-control" />
+            <span asp-validation-for="singleTour.Price" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="MaxPersonLimit" class="control-label"></label>
-            <input asp-for="MaxPersonLimit" class="form-control" />
-            <span asp-validation-for="MaxPersonLimit" class="text-danger"></span>
+            <label asp-for="singleTour.MaxPersonLimit" class="control-label"></label>
+            <input asp-for="singleTour.MaxPersonLimit" class="form-control" />
+            <span asp-validation-for="singleTour.MaxPersonLimit" class="text-danger"></span>
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
-                <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                <input class="form-check-input" asp-for="singleTour.IsActive" /> @Html.DisplayNameFor(model => model.singleTour.IsActive)
             </label>
         </div>
         <div class="form-group">
-            <label asp-for="MeetAddress" class="control-label"></label>
-            <input asp-for="MeetAddress" class="form-control" />
-            <span asp-validation-for="MeetAddress" class="text-danger"></span>
+            <label asp-for="singleTour.MeetAddress" class="control-label"></label>
+            <input asp-for="singleTour.MeetAddress" class="form-control" />
+            <span asp-validation-for="singleTour.MeetAddress" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="SalePercent" class="control-label"></label>
-            <input asp-for="SalePercent" class="form-control" />
-            <span asp-validation-for="SalePercent" class="text-danger"></span>
+            <label asp-for="singleTour.SalePercent" class="control-label"></label>
+            <input asp-for="singleTour.SalePercent" class="form-control" />
+            <span asp-validation-for="singleTour.SalePercent" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="LocationStory" class="control-label"></label>
-            <input asp-for="LocationStory" class="form-control" />
-            <span asp-validation-for="LocationStory" class="text-danger"></span>
+            <label asp-for="singleTour.LocationStory" class="control-label"></label>
+            <input asp-for="singleTour.LocationStory" class="form-control" />
+            <span asp-validation-for="singleTour.LocationStory" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Warning" class="control-label"></label>
-            <input asp-for="Warning" class="form-control" />
-            <span asp-validation-for="Warning" class="text-danger"></span>
+            <label asp-for="singleTour.Warning" class="control-label"></label>
+            <input asp-for="singleTour.Warning" class="form-control" />
+            <span asp-validation-for="singleTour.Warning" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="TourTypeId" class="control-label"></label>
-            <select asp-for="TourTypeId" class="form-control" asp-items="ViewBag.TourTypeId"></select>
+            <label asp-for="singleTour.TourTypeId" class="control-label"></label>
+            <select asp-for="singleTour.TourTypeId" class="form-control" asp-items="ViewBag.TourTypeId"></select>
         </div>
         <div class="form-group">
             <label class="control-label"></label>
@@ -87,7 +88,9 @@
                     }
 
                 }
+
             </select>
+            <span asp-validation-for="Guides" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label">Requirements</label>
@@ -110,7 +113,6 @@
         </div>
     </form>
 </div>
-
 
 <div>
     <a asp-action="Index">Back to List</a>

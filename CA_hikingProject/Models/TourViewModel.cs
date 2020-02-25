@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace CA_hikingProject.Models
 {
     public class TourViewModel
-
     {
         public SingleTour Tour { get; set; }
         public List<AllImage> Photos { get; set; }

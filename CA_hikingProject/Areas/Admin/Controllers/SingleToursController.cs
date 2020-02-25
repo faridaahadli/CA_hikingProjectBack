@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using CA_hikingProject.Areas.Admin.Models;
 
 namespace CA_hikingProject.Areas.Admin.Controllers
 {
@@ -35,6 +36,7 @@ namespace CA_hikingProject.Areas.Admin.Controllers
         // GET: SingleTours
         public async Task<IActionResult> Index()
         {
+            
             var applicationDbContext = _context.SingleTours.Include(s => s.TourType);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -71,66 +73,130 @@ namespace CA_hikingProject.Areas.Admin.Controllers
         // POST: SingleTours/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,StartDate,EndDate,Location,Price,MaxPersonLimit,IsActive,MeetAddress,SalePercent,LocationStory,Warning,TourTypeId")] SingleTour singleTour,
-            List<string> guides,string requirement,List<IFormFile> sources)
+        public async Task<IActionResult> Create( SingleTourViewModel model, List<IFormFile> sources)
         {
+            ViewData["Guides"] = await userManager.GetUsersInRoleAsync("beledci");
             string[] stringSeparators = new string[] { "\r\n" };
-          
+
             if (ModelState.IsValid)
             {
-              if(requirement==null || guides.Count==0)
-                    return View("Create2");
+                if (model.Requirement == null || model.Guides.Count == 0)
+
+                    return View();
                 //var boo = sources.Any(p => !ImgUpload.CheckImageSize(p, 10) || !ImgUpload.CheckImageType(p));
                 foreach (var item in sources)
                 {
                     if (!ImgUpload.CheckImageSize(item, 10) || !ImgUpload.CheckImageType(item))
-                        return View("Create2");
+                        return View();
                 }
-                _context.Add(singleTour);
+                _context.Add(model.singleTour);
                 await _context.SaveChangesAsync();
                 //Images of Place
                 foreach (var item in sources)
                 {
-                    var res = await ImgUpload.SaveImage(Path.Combine(hostingEnvironment.WebRootPath,"img","tours"), item);
+                    var res = await ImgUpload.SaveImage(Path.Combine(hostingEnvironment.WebRootPath, "img", "tours"), item);
                     var img = new AllImage();
                     img.Source = res;
                     _context.Images.Add(img);
                     await _context.SaveChangesAsync();
                     var tourImg = new OneTourImage();
                     tourImg.AllImageId = img.Id;
-                    tourImg.SingleTourId = singleTour.Id;
+                    tourImg.SingleTourId = model.singleTour.Id;
                     tourImg.IsIntro = true;
                     _context.OneTourImages.Add(tourImg);
                 }
                 //Requirements
-                var allreq = requirement.Split(stringSeparators, StringSplitOptions.None);
+                var allreq = model.Requirement.Split(stringSeparators, StringSplitOptions.None);
                 for (int i = 0; i < allreq.Length; i++)
                 {
                     if (allreq[i] == "")
                         continue;
                     var req = new Requirement();
                     req.Description = allreq[i];
-                    req.SingleTourId = singleTour.Id;
+                    req.SingleTourId = model.singleTour.Id;
                     _context.Requirements.Add(req);
                 }
                 //Guides for Tour
-                foreach (var guide in guides)
+                foreach (var guide in model.Guides)
                 {
                     var TourGuides = new GuideToTourPvt();
-                    TourGuides.TourId = singleTour.Id;
+                    TourGuides.TourId = model.singleTour.Id;
                     TourGuides.GuideId = guide;
                     _context.GuideToTourPvts.Add(TourGuides);
                 }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TourTypeId"] = new SelectList(_context.TourTypes, "Id", "Name", singleTour.TourTypeId);
-            ViewData["Guides"] = await userManager.GetUsersInRoleAsync("beledci");
+            ViewData["TourTypeId"] = new SelectList(_context.TourTypes, "Id", "Name", model.singleTour.TourTypeId);
+
             return View();
         }
+        #region
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Title,StartDate,EndDate,Location,Price,MaxPersonLimit,IsActive,MeetAddress,SalePercent,LocationStory,Warning,TourTypeId")] SingleTour singleTour,
+        //    List<string> guides, string requirement, List<IFormFile> sources)
+        //{
+        //    ViewData["Guides"] = await userManager.GetUsersInRoleAsync("beledci");
+        //    string[] stringSeparators = new string[] { "\r\n" };
 
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (requirement == null || guides.Count == 0)
+
+        //            return View();
+        //        //var boo = sources.Any(p => !ImgUpload.CheckImageSize(p, 10) || !ImgUpload.CheckImageType(p));
+        //        foreach (var item in sources)
+        //        {
+        //            if (!ImgUpload.CheckImageSize(item, 10) || !ImgUpload.CheckImageType(item))
+        //                return View();
+        //        }
+        //        _context.Add(singleTour);
+        //        await _context.SaveChangesAsync();
+        //        //Images of Place
+        //        foreach (var item in sources)
+        //        {
+        //            var res = await ImgUpload.SaveImage(Path.Combine(hostingEnvironment.WebRootPath, "img", "tours"), item);
+        //            var img = new AllImage();
+        //            img.Source = res;
+        //            _context.Images.Add(img);
+        //            await _context.SaveChangesAsync();
+        //            var tourImg = new OneTourImage();
+        //            tourImg.AllImageId = img.Id;
+        //            tourImg.SingleTourId = singleTour.Id;
+        //            tourImg.IsIntro = true;
+        //            _context.OneTourImages.Add(tourImg);
+        //        }
+        //        //Requirements
+        //        var allreq = requirement.Split(stringSeparators, StringSplitOptions.None);
+        //        for (int i = 0; i < allreq.Length; i++)
+        //        {
+        //            if (allreq[i] == "")
+        //                continue;
+        //            var req = new Requirement();
+        //            req.Description = allreq[i];
+        //            req.SingleTourId = singleTour.Id;
+        //            _context.Requirements.Add(req);
+        //        }
+        //        //Guides for Tour
+        //        foreach (var guide in guides)
+        //        {
+        //            var TourGuides = new GuideToTourPvt();
+        //            TourGuides.TourId = singleTour.Id;
+        //            TourGuides.GuideId = guide;
+        //            _context.GuideToTourPvts.Add(TourGuides);
+        //        }
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["TourTypeId"] = new SelectList(_context.TourTypes, "Id", "Name", singleTour.TourTypeId);
+
+        //    return View();
+        //}
+        #endregion
         // GET: SingleTours/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -145,11 +211,11 @@ namespace CA_hikingProject.Areas.Admin.Controllers
                 return NotFound();
             }
             singleTour.Requirements = _context.Requirements.Where(p => p.SingleTourId == singleTour.Id).ToList();
-            singleTour.TourImages= _context.OneTourImages.Where(p => p.SingleTourId == singleTour.Id).ToList();
+            singleTour.TourImages = _context.OneTourImages.Where(p => p.SingleTourId == singleTour.Id).ToList();
             var tour = new TourViewModel();
             tour.Tour = singleTour;
             tour.Photos = _context.Images.ToList();
-      
+
             ViewData["TourTypeId"] = new SelectList(_context.TourTypes, "Id", "Name", singleTour.TourTypeId);
             return View(tour);
         }
@@ -159,7 +225,7 @@ namespace CA_hikingProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  TourViewModel model)
+        public async Task<IActionResult> Edit(int id, TourViewModel model)
         {
             if (id != model.Tour.Id)
             {
@@ -171,8 +237,8 @@ namespace CA_hikingProject.Areas.Admin.Controllers
                 try
                 {
                     _context.Update(model.Tour);
-                    model.Tour.Requirements= _context.Requirements.Where(p => p.SingleTourId == model.Tour.Id).ToList();
-                    
+                    model.Tour.Requirements = _context.Requirements.Where(p => p.SingleTourId == model.Tour.Id).ToList();
+
                     await _context.SaveChangesAsync();
 
                 }
