@@ -8,7 +8,6 @@
 @{
     Layout = "_AdminLayout";
 }
-@*@{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }*@
 
 <div class="col-md-8">
     <form asp-area="Admin" asp-action="Create" enctype="multipart/form-data">
@@ -27,6 +26,10 @@
             <label asp-for="singleTour.EndDate" class="control-label"></label>
             <input asp-for="singleTour.EndDate" class="form-control" />
             <span asp-validation-for="singleTour.EndDate" class="text-danger"></span>
+            <span class="text-danger">
+                @Html.ValidationMessage("timeCheck")
+            </span>
+           
         </div>
         <div class="form-group">
             <label asp-for="singleTour.Location" class="control-label"></label>
@@ -74,8 +77,8 @@
         </div>
         <div class="form-group">
             <label class="control-label"></label>
-            <select class="mdb-select colorful-select dropdown-primary md-form" name="guides" multiple>
-                <option value="" disabled selected>Beledcilere secin</option>
+            <select class="selectpicker"  name="guides"  multiple data-live-search="true">
+                <option value="" disabled>Beledcilere secin</option>
                 @foreach (var item in ViewBag.Guides)
                 {
                     if (item != null)
@@ -90,16 +93,21 @@
                 }
 
             </select>
-            <span asp-validation-for="Guides" class="text-danger"></span>
+            <div>
+                <span asp-validation-for="Guides" class="text-danger"></span>
+            </div>
+           
         </div>
         <div class="form-group">
             <label class="control-label">Requirements</label>
             <div class="border-success w-100" type="text" id="reqHolder" value="gbhnj" style="height:100px;overflow-y:scroll">
 
             </div>
-            <textarea style="visibility:hidden" class="border-success w-100" id="reqHolderInp" name="requirement" style="height:100px;overflow-y:scroll">
+            <span asp-validation-for="Requirement" class="text-danger"></span>
+            <textarea style="visibility:hidden;height:100px;overflow-y:scroll" class="border-success w-100" id="reqHolderInp" name="requirement">
 
          </textarea>
+
             <input class="form-control" id="reqCrt" />
             <input type="button" id="add_req" value="Add requirement" class="btn btn-primary mt-2" />
         </div>
@@ -154,6 +162,6 @@
                 }
             })
         })
-
+        
     </script>
 }

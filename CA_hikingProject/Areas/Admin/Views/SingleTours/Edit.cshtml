@@ -1,4 +1,4 @@
-﻿@model CA_hikingProject.Models.TourViewModel
+﻿@model CA_hikingProject.Areas.Admin.Models.TourViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,7 +13,7 @@
 <hr />
 
 <div class="col-md-8">
-    <form asp-area="Admin" asp-action="Edit">
+    <form asp-area="Admin" asp-action="Edit" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Tour.Id" />
         <div class="form-group">
@@ -77,41 +77,62 @@
             <span asp-validation-for="Tour.TourTypeId" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group ">
 
-            <label class="control-label">Requirements</label>
-            <div class="border-success w-100" type="text" id="reqHolder" value="gbhnj" style="height:100px;overflow-y:scroll">
-                @foreach (var item in Model.Tour.Requirements)
-                {
-                    <div>
-                        <a asp-action="Edit" asp-route-id="@item.Id" asp-controller="Requirements">
-                            @item.Description
-                        </a>
-                        <span id='exit'><i class='fas fa-times ml-2'></i></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="border-success w-100" type="text">
+                        <span>Movcud telebler(Qeyd:silmek istediklerinizi secerek sile bilersiniz)</span>
+                        <ul>
+                            @for (int i = 0; i < Model.Requirements.Count(); i++)
+                            {
+
+
+                                <li class="reqText">
+                                    <input type="checkbox" asp-for="@Model.Requirements[i].Selected" />
+                                    <label asp-for="@Model.Requirements[i].Id">@Model.Requirements[i].Description</label>
+                                    <input type="hidden" asp-for="@Model.Requirements[i].Description" />
+                                    <input type="hidden" asp-for="@Model.Requirements[i].Id" />
+                                </li>
+                            }
+                        </ul>
+
                     </div>
-                }
+                </div>
+
+                <div class="col-md-6">
+                    <span>Yeni elave edilen telebler</span>
+                    <div class="w-100" type="text" id="reqHolder" value="gbhnj" style="height:100px;overflow-y:scroll;border:1px solid black">
+
+                    </div>
+                </div>
             </div>
-            <textarea style="white-space:pre-line" class="border-success w-100" id="reqHolderInp" name="requirement" style="height:100px;overflow-y:scroll">
-                  @foreach (var item in Model.Tour.Requirements)
-                    {
-                       @item.Description <br />
 
 
-
-                    }
+            <textarea name="requirement" style="display:none;white-space:pre-line;height:100px;overflow-y:scroll" class="border-success w-100" id="reqHolderInp" name="requirement">
+               
                    </textarea>
+            <input class="form-control" id="reqCrt" />
+            <input type="button" id="add_req" value="Add requirement" class="btn btn-primary mt-2" />
         </div>
         <div class="form-group">
-            @foreach (var item in Model.Tour.TourImages)
-            {
-                <a asp-action="Edit" asp-route-id="@item.Id" asp-controller="OneTourImages">
-                    <div style="width:200px">
-                        <img class="w-100" src="~/img/tours/@Model.Photos.First(p=>p.Id==item.AllImageId).Source" />
-                    </div>
+            
+            <input type="file" multiple name="sources" class="form-control" />
+        </div>
+        <div class="form-group">
+            <div class="row">
+                @for (int i=0; i<Model.Photos.Count();i++)
+                {
+                <div class="col-md-3">
 
-                </a>
-            }
+                    <input type="checkbox" asp-for="@Model.Photos[i].Selected" />
+                    <img class="w-100" src="~/img/tours/@Model.Photos[i].Source" />
+                    <input type="hidden" asp-for="@Model.Photos[i].Id" />
+                    <input type="hidden" asp-for="@Model.Photos[i].Source" />
 
+                </div>
+                }
+            </div>
         </div>
         <div class="form-group">
             <input type="submit" value="Save" class="btn btn-primary" />
@@ -132,7 +153,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "/SingleTours/Edit",
+                url: "/Admin/SingleTours/Edit/@Model.Tour.Id",
                 success: function (res) {
                     if ($("#reqCrt").val() != "") {
                         text += `${$("#reqCrt").val()}\n`;
@@ -140,26 +161,31 @@
                             "<div>" + $("#reqCrt").val() + "<span id='exit'><i class='fas fa-times ml-2' ></i></span>" + "</div>"
                         )
                         $("#reqHolderInp").val(text)
+                        $("#reqCrt").val("")
                     }
 
 
                 }
             })
             $("#reqHolder").val($("#reqHolder").text())
-            console.log($("#reqHolder").val())
+           
+            
 
         })
-        $("#exit").click(function () {
-            console.log("Hellow")
-            $.ajax({
-                type: "GET",
-                url: "/SingleTours/Create",
-                success: function (res) {
-                    //$("#reqHolder").remove($("#exit").parent())
 
-                }
-            })
-        })
+
+        
+        //$("#exit").click(function () {
+        //    console.log("Hellow")
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/SingleTours/Create",
+        //        success: function (res) {
+        //            //$("#reqHolder").remove($("#exit").parent())
+
+        //        }
+        //    })
+        //})
 
     </script>
 }

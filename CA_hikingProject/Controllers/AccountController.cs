@@ -4,12 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using CA_hikingProject.DbModels;
 using CA_hikingProject.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace CA_hikingProject.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -22,10 +28,16 @@ namespace CA_hikingProject.Controllers
            this. logger = _logger;
            this.signInManager = _signInManager;
         }
-
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(string returnUrl)
         {
-            return View("Login");
+            var model = new LoginViewModel()
+            {
+               ReturnUrl=returnUrl
+            };
+
+            
+            return View("Login",model);
         }
         [HttpGet]
         public IActionResult Register()
@@ -130,18 +142,53 @@ namespace CA_hikingProject.Controllers
         //}
         #endregion
         [HttpPost]
-        public IActionResult ExternalLogin()
+        public IActionResult ExternalLogin(string provider,string returnUrl)
         {
-            var redirectUrl = Url.Action("ExtLogCall", "Account");
-            var props = signInManager.ConfigureExternalAuthenticationProperties("Facebook", redirectUrl);
-            return new ChallengeResult("Facebook",props);
+            var redUrl = Url.Action("CallBack", "Account", new { ReturnUrl = returnUrl });
+            var props = signInManager.ConfigureExternalAuthenticationProperties(provider, redUrl);
+            return new ChallengeResult(provider, props);
         }
-        //[HttpPost]
-        //public async Task<IActionResult> LogIn(string ReturnUrl)
-        //{
 
-        //    return View();
-        //}
+        public async Task<IActionResult> CallBack(string returnUrl=null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
+            var model = new LoginViewModel()
+            {
+                ReturnUrl = returnUrl
+            };
+            var info = await  signInManager.GetExternalLoginInfoAsync();
+            if (info==null)
+            {
+                return RedirectToAction("Index",model);
+            }
+            var res = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,info.ProviderKey,
+                isPersistent:false,bypassTwoFactor:true);
+            if (res.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            if (email != null)
+            {
+                var user = await userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    user = new ApplicationUser()
+                    {
+                        UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                    };
+                    await userManager.CreateAsync(user);
+                }
+                await userManager.AddLoginAsync(user, info);
+                await signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+           
+                return View("Error");   
+           }
+        
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {

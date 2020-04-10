@@ -48,13 +48,15 @@ namespace CA_hikingProject
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    options.ClientId = "943684324068-shh7m2b7grvrggc59ocdun5cdnbt034n.apps.googleusercontent.com";
-                    options.ClientSecret = "jApvockH_UAxX5Ug77RX09DH";
-                }).AddFacebook(options =>
-                {
-                    options.AppId = "1546627785487573";
-                    options.AppSecret = "ba71dabd75f5b3eee7db6b73b72b4868";
+                    options.ClientId = "922300174275-2dehggqihp8vph9frfqliq9hd719imbr.apps.googleusercontent.com";
+                    options.ClientSecret = "G875iX_CgFP-Naa_V0Tv5rjq";
                 });
+
+                // .AddFacebook(options =>
+                //{
+                //    options.AppId = "1546627785487573";
+                //    options.AppSecret = "ba71dabd75f5b3eee7db6b73b72b4868";
+                //});
 
                 
         }

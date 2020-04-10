@@ -11,27 +11,26 @@ $(document).ready(function(){
         });
       });
 
-
-    // Price filter
-
-    $( function() {
-        $( ".slider-range" ).slider({
-          range: true,
-          min: 0,
-          max: 500,
-          values: [ 75, 300 ],
-          slide: function( event, ui ) {
-            $( ".amount" ).val(   ui.values[ 0 ] + " azn"+" - " + ui.values[ 1 ] +" azn");
-          }
-        });
-        $( ".amount" ).val(   $( ".slider-range" ).slider( "values", 0 )  +" azn"+
-          " - " + $( ".slider-range" ).slider( "values", 1 )+" azn" );
-      });
-
+   
+  
+    $("#hell").click(function () {
+        $.ajax({
+            url: "/tours/PriceFilter",
+            type: "POST",
+            success: function (res) { }
+        })
+    })
+    //$("#prcFilter").click(function () {
+    //    $.ajax({
+    //        url: "/tours/PriceFilter",
+    //        type: "GET",
+    //        success: function (res) { }
+    //    })
+    //})
       // Filter button click
-      $(".fltBtn button").click(function(){
-
+    $(".fltBtn button").click(function () {
+        
+    })
   $(".overlay").toggleClass("aftOver")
 
       })
-})

@@ -6,12 +6,13 @@ body{
 }
 .card_img{
     overflow: hidden;
-    height: 100%;
+    height: 250px;
 }
 #tourCards img{
-    width: 100%;
+    min-width: 100%;
     box-sizing: border-box;
     height: 100%;
+    object-fit:cover;
   
 }
 .wholeCardBox{

@@ -26,7 +26,15 @@ namespace CA_hikingProject.Models
 
             string path = Path.Combine(folder, filename);
 
-           await Image.CopyToAsync(new FileStream(path,FileMode.Create));
+            using (var stream = new FileStream(path, FileMode.Create))
+
+            {
+
+                await Image.CopyToAsync(stream);
+
+            }
+
+           
 
             return filename;
         }
