@@ -2,7 +2,7 @@
 @model ICollection<CA_hikingProject.Models.TourLookViewModel>
 @{
     ViewData["Title"] = "Index";
-   
+
 }
 
 <!-- Tour Cards Start-->
@@ -11,88 +11,95 @@
         <div class="row">
             <div class="col-md-8 col-12">
                 <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        
-                        <div class="col-md-12 mb-3">
-                            <div class="wholeCardBox">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="card_img w-100">
-                                            <a href="#">
-                                                <img src="~/img/tours/@item.Images[0].Source" class="w-100" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <div class="cardBody">
-                                            <div class="cardTitle text-center">
-                                                <h3>
-                                                    <a href="singleTour.html">@item.Tour.Title</a>
-                                                </h3>
-                                            </div>
-                                            <div class="cardDetails">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <ul style="list-style-type:none">
-                                                            <li>Gorus yeri: @item.Tour.MeetAddress</li>
-                                                            @foreach(var req in item.Tour.Requirements)
-                                                            {
-                                                                <li class="text-danger">@req.Description</li>
-                                                            }
-                                                        </ul>
-                                                        
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h3 class="price">@item.Tour.Price Azn</h3>
-                                                        <ul class="featureList">
-                                                            <li>Geri donus: @item.Tour.EndDate</li>
-                                                            <li>Beledci:
-                                                            @foreach (var guide in item.Guides)
-                                                            {
-                                                               @guide.Name @guide.Surname 
-                                                            }
-                                                            </li>
-                                                            <li>Camping</li>
+                    <div id="allCont">
+                        <div id="originalCont">
+                            @foreach (var item in Model)
+                            {
 
-                                                        </ul>
+                                <div class="col-md-12 mb-3">
+                                    <div class="wholeCardBox">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="card_img w-100">
+                                                    <a href="#">
+                                                        <img src="~/img/tours/@item.Images[0].Source" class="w-100" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="cardBody">
+                                                    <div class="cardTitle text-center">
+                                                        <h3>
+                                                            <a href="singleTour.html">@item.Tour.Title</a>
+                                                        </h3>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="date text-center">
-                                                            <h4>
-                                                                @item.Tour.EndDate.ToString("D",CultureInfo.CreateSpecificCulture("az"))
-                                                                
-                                                            </h4>
+                                                    <div class="cardDetails">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <ul style="list-style-type:none">
+                                                                    <li>Gorus yeri: @item.Tour.MeetAddress</li>
+                                                                    @foreach (var req in item.Tour.Requirements)
+                                                                    {
+                                                                        <li class="text-danger">@req.Description</li>
+                                                                    }
+                                                                </ul>
+
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h3 class="price">@item.Tour.Price Azn</h3>
+                                                                <ul class="featureList">
+                                                                    <li>Geri donus: @item.Tour.EndDate</li>
+                                                                    <li>
+                                                                        Beledci:
+                                                                        @foreach (var guide in item.Guides)
+                                                                        {
+                                                                            @guide.Name @guide.Surname
+                                                                        }
+                                                                    </li>
+                                                                    <li>Camping</li>
+
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="date text-center">
+                                                                    <h4>
+                                                                        @item.Tour.EndDate.ToString("D", CultureInfo.CreateSpecificCulture("az"))
+
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         </div>
-                    }
-
+                    </div>
+                   
+                    
+                    
                     <!-- <div class="col-md-12">
-        <div id="pagination" class="d-flex justify-content-center">
-            <ul class="d-flex" id="numBox">
-                <li class="pageNum mr-3"><a href="#">Prev</a></li>
-                <li class="pageNum"><a href="#">1</a></li>
-                <li class="pageNum"><a href="#">2</a></li>
-                <li class="pageNum"><a href="#">3</a></li>
-                <li class="pageNum"><a href="#">4</a></li>
-                <li class="pageNum"><a href="#">5</a></li>
-                <li class="pageNum"><a href="#">6</a></li>
-                <li class="pageNum"><a href="#">7</a></li>
-                <li class="pageNum"><a href="#">8</a></li>
-                <li class="pageNum"><a href="#">9</a></li>
-                <li class="pageNum"><a href="#">10</a></li>
-                <li class="pageNum ml-3"><a href="#">Next</a></li>
-            </ul>
-        </div>
-    </div> -->
+                        <div id="pagination" class="d-flex justify-content-center">
+                            <ul class="d-flex" id="numBox">
+                                <li class="pageNum mr-3"><a href="#">Prev</a></li>
+                                <li class="pageNum"><a href="#">1</a></li>
+                                <li class="pageNum"><a href="#">2</a></li>
+                                <li class="pageNum"><a href="#">3</a></li>
+                                <li class="pageNum"><a href="#">4</a></li>
+                                <li class="pageNum"><a href="#">5</a></li>
+                                <li class="pageNum"><a href="#">6</a></li>
+                                <li class="pageNum"><a href="#">7</a></li>
+                                <li class="pageNum"><a href="#">8</a></li>
+                                <li class="pageNum"><a href="#">9</a></li>
+                                <li class="pageNum"><a href="#">10</a></li>
+                                <li class="pageNum ml-3"><a href="#">Next</a></li>
+                            </ul>
+                        </div>
+                    </div> -->
                 </div>
 
 
@@ -144,15 +151,21 @@
                             </div>
                             <div class="col-md-12 mt-5">
 
-                                <input type="hidden" id="prcMin" value="6" name="prcMin" />
-                                <input type="hidden" id="prcMax" value="6" name="prcMax" />
-                                <button type="button" class="btn-warning" id="hell">Click Me</button>
+                                <div class="priceFilter">
+                                    <p>
+                                        <label for="amount">Price range:</label>
+                                        <input type="text" class="amount" readonly
+                                               style="border:0; color:#f6931f; font-weight:bold;">
+                                    </p>
+
+                                    <div class="slider-range"></div>
+                                </div>
                             </div>
                             <
                             @*<form method="post" asp-action="PriceFilter" asp-controller="tours">
-            <input type="hidden" id="prcMin" value="6" name="prcMin" />
-            <input type="hidden" id="prcMax" value="6" name="prcMax" />
-        </form>*@
+                                    <input type="hidden" id="prcMin" value="6" name="prcMin" />
+                                    <input type="hidden" id="prcMax" value="6" name="prcMax" />
+                                </form>*@
                         </div>
                     </div>
                 </div>
@@ -171,7 +184,57 @@
     <link rel="stylesheet" href="~/css/tours.css">
 }
 @section Scripts{
-    
+    <script>
+        $(function () {
+            $(".slider-range").slider({
+                range: true,
+                min: 0,
+                max: @Model.Max(p=>p.Tour.Price)+100,
+                values: [0, @Model.Max(p=>p.Tour.Price)],
+                slide: function (event, ui) {
+                    $(".amount").val(ui.values[0] + " azn" + " - " + ui.values[1] + " azn");
+                    PriceData(ui.values[0],ui.values[1])
+                }
+            });
+            $(".amount").val($(".slider-range").slider("values", 0) + " azn" +
+                " - " + $(".slider-range").slider("values", 1) + " azn");
+        });
+
+        function PriceData(min, max) {
+            $.ajax({
+                url: '/tours/PriceFilter',
+                type: "GET",
+                data: {
+                    min: min,
+                    max: max
+                },
+               
+                success: function (res) {
+                    $("#allCont").empty()
+                   
+                    $("#allCont").append(res)
+                    console.log(res)
+                },
+                //error: function (res) {
+                //    console.log(res.error)
+                //}
+            })
+
+            //$.ajaxSetup({
+            //    dataType:"json",
+            //    contentType: "application/json"
+            //})
+            //$.post("/tours/PriceFilter", { min: min, max: max }).done(function (res) {
+            //     console.log(res)
+            //})
+        }
+    </script>
+
+    <!-- Price filter -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Datetimepicker -->
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -11,5 +11,6 @@ namespace CA_hikingProject.Models
         public SingleTour Tour { get; set; }
         public List<AllImage> Images { get; set; }
         public List<ApplicationUser> Guides { get; set; }
+       
     }
 }

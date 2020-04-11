@@ -13,6 +13,7 @@ namespace CA_hikingProject.DbModels
         public string Description { get; set; }
         [Required]
         public int SingleTourId { get; set; }
+       
         public virtual SingleTour SingleTour { get; set; }
     }
 }

@@ -1,0 +1,69 @@
+﻿@model ICollection<CA_hikingProject.Models.TourLookViewModel>
+@using System.Globalization
+@foreach (var item in Model)
+{
+
+    <div class="col-md-12 mb-3">
+        <div class="wholeCardBox">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card_img w-100">
+                        <a href="#">
+                            <img src="~/img/tours/@item.Images[0].Source" class="w-100" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="cardBody">
+                        <div class="cardTitle text-center">
+                            <h3>
+                                <a href="singleTour.html">@item.Tour.Title</a>
+                            </h3>
+                        </div>
+                        <div class="cardDetails">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul style="list-style-type:none">
+                                        <li>Gorus yeri: @item.Tour.MeetAddress</li>
+                                        @foreach (var req in item.Tour.Requirements)
+                                        {
+                                            <li class="text-danger">@req.Description</li>
+                                        }
+                                    </ul>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="price">@item.Tour.Price Azn</h3>
+                                    <ul class="featureList">
+                                        <li>Geri donus: @item.Tour.EndDate</li>
+                                        <li>
+                                            Beledci:
+                                            @foreach (var guide in item.Guides)
+                                            {
+                                                @guide.Name @guide.Surname
+                                            }
+                                        </li>
+                                        <li>Camping</li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="date text-center">
+                                        <h4>
+                                            @item.Tour.EndDate.ToString("D", CultureInfo.CreateSpecificCulture("az"))
+
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
