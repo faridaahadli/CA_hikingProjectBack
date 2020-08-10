@@ -15,7 +15,7 @@ $(document).ready(function () {
      
       checkPosition()
     })
-
+    
     // $(".clickSrch").click(function(){
     //     $(this).removeClass("search_box")
     //     $(".search").css({

@@ -65,11 +65,11 @@
                     </div>
 
                     <div class="col-md-2 col-2 text-center">
-                        <div class="search_box srchNorm">
-                            <input type="text" class="search" placeholder="Axtarış">
-                            <a href="#" class="search_btn">
+                        <div class="search_box search_bfocout srchNorm">
+                            <input type="text" class="search" name="seachKey" placeholder="Axtarış">
+                            <div  class="search_btn">
                                 <i class="fas fa-search"></i>
-                            </a>
+                            </div>
                         </div>
                         <div id="burger_menu" class="brg_com">
 
@@ -140,9 +140,6 @@
      
 
     <footer>
-
-
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 col-12">
@@ -216,6 +213,27 @@
             crossorigin="anonymous"></script>
 
     <script src="~/js/blank.js"></script>
+    
+          <script>
+              $(".search_btn").click(function () {
+                  $.ajax({
+                url: '/tours/Search',
+                type: "POST",
+                data: {
+                    searchKey:$(".search").val()
+                },
+                      success: function (res) {
+                         $("#allCont").empty()
+                    $("#allCont").append(res)
+                },
+                  })
+              })
+              
+             
+          </script>
+
+
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>

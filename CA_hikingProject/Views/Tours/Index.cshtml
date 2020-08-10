@@ -15,14 +15,15 @@
                         <div id="originalCont">
                             @foreach (var item in Model)
                             {
-
+                            
                                 <div class="col-md-12 mb-3">
                                     <div class="wholeCardBox">
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="card_img w-100">
-                                                    <a href="#">
+                                                    <a asp-controller="Tours" asp-action="GetTour" asp-route-id="@item.Tour.Id" class="submit">
                                                         <img src="~/img/tours/@item.Images[0].Source" class="w-100" alt="">
+                                                        
                                                     </a>
                                                 </div>
                                             </div>
@@ -30,7 +31,7 @@
                                                 <div class="cardBody">
                                                     <div class="cardTitle text-center">
                                                         <h3>
-                                                            <a href="singleTour.html">@item.Tour.Title</a>
+                                                            <a href="singleTour.html" class="submit">@item.Tour.Title</a>
                                                         </h3>
                                                     </div>
                                                     <div class="cardDetails">
@@ -63,7 +64,7 @@
                                                             <div class="col-md-12">
                                                                 <div class="date text-center">
                                                                     <h4>
-                                                                        @item.Tour.EndDate.ToString("D", CultureInfo.CreateSpecificCulture("az"))
+                                                                        @item.Tour.StartDate.ToString("D", CultureInfo.CreateSpecificCulture("az"))
 
                                                                     </h4>
                                                                 </div>
@@ -76,6 +77,9 @@
                                         </div>
                                     </div>
                                 </div>
+                           
+
+                              
                             }
                         </div>
                     </div>
@@ -112,10 +116,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 mt-5">
-                            <div class="dateTimefilt text-center">
-                                <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="begin">Baslama tarixi:</label>
+                                    <input id="begin" name="begin" type="date" value="@DateTime.Now.Date.GetDateTimeFormats()[5]" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="end">Bitme tarixi:</label>
+                                    <input id="end" name="end" type="date"   value="@DateTime.Now.Date.GetDateTimeFormats()[5]" />
+                                </div>
+                                </div>
                             </div>
-                        </div>
                         <div class="col-md-12 mt-5">
                             <div class="priceFilter">
                                 <p>
@@ -145,9 +156,7 @@
                     <div class="row">
                         <div class="container">
                             <div class="col-md-12 mt-5">
-                                <div class="dateTimefilt text-center">
-                                    <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-                                </div>
+                              <input type="date"/>
                             </div>
                             <div class="col-md-12 mt-5">
 
@@ -161,11 +170,7 @@
                                     <div class="slider-range"></div>
                                 </div>
                             </div>
-                            <
-                            @*<form method="post" asp-action="PriceFilter" asp-controller="tours">
-                                    <input type="hidden" id="prcMin" value="6" name="prcMin" />
-                                    <input type="hidden" id="prcMax" value="6" name="prcMax" />
-                                </form>*@
+                     
                         </div>
                     </div>
                 </div>
@@ -185,49 +190,59 @@
 }
 @section Scripts{
     <script>
+        let min=0;
+        let max;
+        max = Math.round(@Model.Max(p => p.Tour.Price) +1)
         $(function () {
             $(".slider-range").slider({
                 range: true,
                 min: 0,
                 max: @Model.Max(p=>p.Tour.Price)+100,
-                values: [0, @Model.Max(p=>p.Tour.Price)],
+                values: [0, @Model.Max(p=>p.Tour.Price)+1],
                 slide: function (event, ui) {
                     $(".amount").val(ui.values[0] + " azn" + " - " + ui.values[1] + " azn");
-                    PriceData(ui.values[0],ui.values[1])
+                    min = ui.values[0];
+                    max = ui.values[1];
+                    PriceData(min,max, $("#begin").val(), $("#end").val())
                 }
             });
             $(".amount").val($(".slider-range").slider("values", 0) + " azn" +
                 " - " + $(".slider-range").slider("values", 1) + " azn");
         });
 
-        function PriceData(min, max) {
+        function PriceData(min, max,begin,end) {
             $.ajax({
-                url: '/tours/PriceFilter',
-                type: "GET",
+                url: '/tours/Filters',
+                type: "POST",
                 data: {
                     min: min,
-                    max: max
+                    max: max,
+                    end: end,
+                    begin: begin,
+                    searchKey:$(".search").val()
                 },
-               
                 success: function (res) {
                     $("#allCont").empty()
-                   
                     $("#allCont").append(res)
-                    console.log(res)
+                    console.log($("#begin").val(),$("#end").val())
                 },
-                //error: function (res) {
-                //    console.log(res.error)
-                //}
+                error: function (res) {
+                    //console.log($("#begin").val(),$("#end").val())
+                }
             })
 
-            //$.ajaxSetup({
-            //    dataType:"json",
-            //    contentType: "application/json"
-            //})
-            //$.post("/tours/PriceFilter", { min: min, max: max }).done(function (res) {
-            //     console.log(res)
-            //})
+  
         }
+   
+       $("#begin").change(function () {
+            PriceData(min,max, $("#begin").val(), $("#end").val())
+        })
+        $("#end").change(function () {
+            PriceData(min,max, $("#begin").val(), $("#end").val())
+        })
+        $(".submit").click(function () {
+            $("#getTour").submit()
+        })
     </script>
 
     <!-- Price filter -->
@@ -237,9 +252,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Datetimepicker -->
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+ 
     <script src="~/js/tours.js"></script>
 
 }

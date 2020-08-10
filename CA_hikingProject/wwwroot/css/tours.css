@@ -48,23 +48,7 @@ font-size: 30px;
   }
 
   /* Datetime Filter */
-  .dateTimefilt{
-      border:1px solid blueviolet;
-      border-radius:5px;
-      overflow: hidden;
-      background-color: white;
-  }
-  .dateTimefilt input{
-      width: 100%;
-      padding:10px 20px;
-      cursor: pointer;
-      text-align:center ;
-      font-weight: bold;
-      border: none;
-  }
-  .dateTimefilt input:focus{
-      outline:none;
-  }
+ 
 
   /* Price Filter */
   .priceFilter{

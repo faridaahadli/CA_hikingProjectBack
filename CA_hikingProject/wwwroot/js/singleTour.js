@@ -22,21 +22,11 @@
 // })
 
 $(document).ready(function () {
-    $(".replyBox").hide();
+    
     // Comment Section
 
-    const url = "https://jsonplaceholder.typicode.com/todos"
-    $("#commentSubmit").click(function () {
-        $.ajax({
-            url: "url",
-            type: "Post",
-            data:$("#cmtBox").serialize(),
-        success: function (res) {
-                $("#commentHolder").append(res)
-            }
-        })
-    })
-
+    
+  
 
     // Gallery Section
     $(".placeImg").magnificPopup({

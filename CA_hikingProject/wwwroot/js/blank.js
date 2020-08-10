@@ -63,7 +63,29 @@ $(document).ready(function () {
     })
 
 })
+//$(".search").focusin(function(){
+//    $(this).css({
+//        "width": "80%",
+//        "padding-left": "10px",
+//        "padding-right": "20px"
+//    })
+//    $(".search_btn").css({
+//        "background-color":"rgb(48, 87, 160)"
+//    })
+//    $(".search_box").addClass("search_bfoc")
+//})
 
+//$(".search").focusout(function () {
+//    $(this).css({
+//        "width": "0%",
+//        "padding-left": "0px",
+//        "padding-right": "0px"
+//    })
+//    $(".search_btn").css({
+//        "background-color": "transparent"
+//    })
+//    $(".search_box").removeClass("search_bfoc")
+//})
 $(window).on('resize', function () {
     checkScreen()
    

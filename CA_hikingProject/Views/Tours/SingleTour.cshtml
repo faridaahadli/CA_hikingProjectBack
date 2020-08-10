@@ -1,0 +1,202 @@
+﻿@using System.Globalization
+@model CA_hikingProject.Models.TourLookViewModel
+@{
+    ViewData["Title"] = "SingleTour";
+}
+
+<!-- Place Images Start -->
+<section id="placeGall" class="everyFirstSec">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sectionHeader text-center">
+                    <h2>@Model.Tour.Title</h2>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="placeImg">
+                    <div class="row">
+                        @foreach (var item in Model.Images)
+                        {
+                            <div class="col-md-4 col-6 ">
+
+                                <div class="img-fluid glImg">
+                                    <a href="~/img/tours/" class="img">
+                                        <img src="~/img/tours/@item.Source" alt="">
+                                    </a>
+
+                                </div>
+                            </div>
+                        }
+                      
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+</section>
+<!-- Place Image End -->
+<!-- Telebler ve melumat start -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    @Model.Tour.LocationStory
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Telebler ve melumat End -->
+<!-- Information Section Start-->
+<section id="tourInfo">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6 ">
+                <div class="col-md-12">
+                    <div class=" text-center">
+                        <h4>Məlumat</h4>
+                    </div>
+                </div>
+                <ul class="">
+                    <li>
+                        <strong>Beledci: </strong>
+                        @foreach(var guide in Model.Guides)
+                        {
+                            @guide.Surname 
+                        }
+                    </li>
+                    <li>
+                        <strong>Tarix: </strong>@Model.Tour.StartDate.ToString("D", CultureInfo.CreateSpecificCulture("az"))
+                    </li>
+                    <li>
+                        <strong>Gorus yeri: </strong>@Model.Tour.MeetAddress
+                    </li>
+                    <li>
+                        <strong>Saat: </strong>@Model.Tour.StartDate.ToShortTimeString()
+                    </li>
+                    <li>
+                        <strong>Geri donus tarix: </strong>@Model.Tour.EndDate.ToString("D", CultureInfo.CreateSpecificCulture("az"))
+                    </li>
+                    <li>
+                        <strong>Geri donus saat: </strong>@Model.Tour.EndDate.ToShortTimeString()
+                    </li>
+                    <li>
+                        <strong>Elaqe: </strong>055 640 67 67
+                    </li>
+                    <li>
+                        <strong>Mekan: </strong>@Model.Tour.Location
+                    </li>
+                    <li>
+                        <strong>Qiymət: </strong>@Model.Tour.Price AZN
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 ">
+                <div class="col-md-12">
+                    <div class=" text-center">
+                        <h4>Tələblər</h4>
+                    </div>
+                </div>
+                <ul class="">
+                    @foreach (var req in Model.Tour.Requirements)
+                    {
+                        <li>
+                           @req.Description
+                        </li>
+                    }
+
+
+                </ul>
+
+            </div>
+            <div class="col-md-12">
+                <div class="joinTour_btn">
+                    <button type="button" onclick="location.href='joinTour.html'">Tura qatıl</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- Information Section End -->
+<!-- Comment Section Start -->
+<section id="comment">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <h4>Rəylər/Suallar</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="commentBox">
+                    <textarea name="cmtBox" id="cmtBox"></textarea>
+                    <div class="AddComment_btn  text-right">
+                        <button id="commentSubmit">Rəy bildir</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div id="commentHolder">
+
+                    <div class="comment">
+                        <p>username</p>
+                        <p>Comment</p>
+                        <textarea name="" class="replyBox"></textarea>
+                        <p class="reply">Cavabla</p>
+
+                    </div>
+                    <div class="comment">
+                        <p>username</p>
+                        <p>Comment</p>
+                        <textarea name="" class="replyBox"> aassa</textarea>
+                        <p class="reply">Cavabla</p>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Comment SectionEnd -->
+
+@section Customcss{
+    <link rel="stylesheet" href="~/css/singleTour.css">
+}
+@section Scripts{
+<script>
+    $("#commentSubmit").click(function () {
+          var comment=$("#cmtBox").val()
+          $.ajax({
+              url: "/Tours/PostTour/@Model.Tour.Id",
+              type: "Post",
+              data: {
+                  comment: comment,
+                  id:@Model.Tour.Id
+              },
+            success: function (res) {
+                 
+           let a= '<div class="comment">'+
+               '<p>Username</p>' +
+               "<p>" + comment + "</p>" +
+                        '<textarea name="" class="replyBox"></textarea>'+
+                    '<p class="reply">Cavabla</p></div>'
+
+                $("#commentHolder").prepend(a)
+                $(".replyBox").hide()
+            }
+            
+        })
+         
+    })
+    $(".replyBox").hide()
+</script>
+    <script src="~/js/singleTour.js"></script>
+ }
